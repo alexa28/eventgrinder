@@ -16,7 +16,6 @@
 	<script src="{% versioned "/static/modernizr-1.1.min.js" %}"></script>
 	<script src="{% versioned "/static/jquery.browser.min.js" %}"></script>
 	<script src="{% versioned "/static/jquery/js/jquery-ui-1.8rc3.custom.min.js" %}"></script>
-    <script src="http://platform.twitter.com/anywhere.js?id=LIsw7kDP7ygrNa9ATwaEA&v=1" type="text/javascript"></script>
 	
 	<link rel="stylesheet" href="{% versioned "/static/jquery/css/smoothness/jquery-ui-1.8rc3.custom.css" %}"/>
 	
@@ -36,9 +35,10 @@
 		}, 7000);
 
 		
-	    $(".datepicker").datepicker();
+        if (!Modernizr.inputtypes.date) {
+            $('input[type=date]').datepicker();
+        }
 
-	
 	
 
 
@@ -46,13 +46,6 @@
 
 
 	</script>
-  	<script type="text/javascript">
-
-  twttr.anywhere(function (T) {
-    T.hovercards({ expanded: true });
-  });
-
-</script>
 
     {% block headextra %}
 
