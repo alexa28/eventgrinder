@@ -3,11 +3,12 @@
 <!DOCTYPE html>
 <HTML>
    <HEAD>
-      <TITLE>{% block title %} {{ site.name }}: {% block subtitle %}{% endblock %}
+      <TITLE>{% block title %} {{ site.name }}
       {% endblock %}</TITLE>
 
 	{% block opengraph %}
 	<meta name="title" content="{{ site.name }}" />
+	<meta name="description" content="{{site.name}} is a calendar for {{site.audience}} " />
 	<meta property="og:type" content="article" />
 	{% endblock %}
 
@@ -16,7 +17,7 @@
 	<script src="{% versioned "/static/modernizr-1.1.min.js" %}"></script>
 	<script src="{% versioned "/static/jquery.browser.min.js" %}"></script>
 	<script src="{% versioned "/static/jquery/js/jquery-ui-1.8rc3.custom.min.js" %}"></script>
-	
+    <script src="http://platform.twitter.com/anywhere.js?id=LIsw7kDP7ygrNa9ATwaEA&v=1" type="text/javascript"></script>
 	<link rel="stylesheet" href="{% versioned "/static/jquery/css/smoothness/jquery-ui-1.8rc3.custom.css" %}"/>
 	
     <link rel="stylesheet" href="{% versioned "/static/reset-fonts.css" %}"/> 
@@ -27,18 +28,16 @@
 	<link rel="alternate" type="application/rss+xml" href="/events/feeds/latest/" title="Latest Additions"/>
 	<link rel="alternate" type="application/rss+xml" href="/thisweek.xml" title="Weekly Newsletter"/>
 	
-	
 	<script>
 	$(function(){
 		window.setTimeout(function(){
-		$("#messages li").fadeOut()
+		    $("#messages li").fadeOut()
 		}, 7000);
 
 		
-        if (!Modernizr.inputtypes.date) {
-            $('input[type=date]').datepicker();
-        }
+	    $(".datepicker").datepicker();
 
+	   
 	
 
 
@@ -46,7 +45,14 @@
 
 
 	</script>
+	<script type="text/javascript">
 
+  twttr.anywhere(function (T) {
+    T.hovercards({ expanded: true });
+  });
+
+</script>
+  
     {% block headextra %}
 
 
@@ -85,23 +91,10 @@
 	
 	<div id="account_tools">
 	
-	{% if user.confirmed_at %}
-	 <a href="{% url add-event %}">add an event</a>
-	 <a href="{% url event-queue %}">event queue</a>
-	<a href="{% url sources-index %}">sources</a>
-	{% if admin %}
-	<a href='{% url edit-site %}' class="adminlink">edit site details</a>
-	<a href='{% url logo-upload %}' class="adminlink">update logo</a>
-	<a href="{% url manage-users %}" class="adminlink"> manage users</a>
-	{% endif %}
-	<a href="{% url account-edit %}">edit your profile</a>
-	 <a href="{{ logout }}">sign out</a>
-	{% else %}
 	
 	 <a href="{% url add-event %}">add an event</a>
 	 <a href="{% url event-queue %}">event queue</a>
 	<a href="{% url sources-index %}">sources</a>
-	{% endif %}
 	<a href="mailto:rosskarchner@gmail.com">feedback</a>
 	
 	</div>
@@ -113,29 +106,23 @@
 	<div class="cell position-0 width-10">
 	<h1 id="title">
 		<a href="{% url front-page %}">
-			
+			{% if site.logo_asset_href %}
+			<img src="{{site.logo_asset_href }}" alt="{{ site.name }}">
+			{% else %}
 			{{ site.name }}
-		
+			{% endif %}
 			</a> </h1>
 			{% if site.twitter %} 
-			<div>Get events as soon as we do, follow @{{site.twitter}}!</div> {% endif %}
+			<div>follow @{{site.twitter}}!</div> {% endif %}
+			
 	
 	</div>
 	<div class="cell position-10 width-6">
 
 	
 	</div>
-	</div>
 	
-{% if messages %}
-<div class="row">
-	<ul id="messages">
-{% for message in messages %}
-<li>{{message|safe}}</li>
-{% endfor %}
-</ul>
-</div>
-{% endif %}
+	</div>
 
 
 {% block content %}
@@ -144,7 +131,7 @@
 <div class="row">
 	
 	<div id="footer" class="cell position-0 width-4">
-		<p> {{ site.name }} is made with:<a href="https://github.com/rosskarchner/eventgrinder">eventgrinder</a></p>
+		<p> {{ site.name }} is made with: <br/><a href="http://eventgrinder.com/"><img src="{% versioned "/static/eventgrinder.png" %}" alt="EVENTGRINDER"/></a>.</p>
 	</div>
 </div>
 {% block endcode %}
