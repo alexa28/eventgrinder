@@ -1,7 +1,0 @@
-[submodule "aetycoon"]
-        path = aetycoon
-        url = https://github.com/Arachnid/aetycoon.git
-        
-[submodule "aetycoon2"]
-        path = shared/aetycoon
-        url = https://github.com/Arachnid/aetycoon.git
