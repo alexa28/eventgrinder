@@ -1,5 +1,0 @@
-cron:
-- description: start getting icals
-  url: /sources/start_fetch_icals/
-  schedule: every 2 hours
-
